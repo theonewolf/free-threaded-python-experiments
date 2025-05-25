@@ -31,7 +31,7 @@ def parse_args():
 
 def run_benchmark(client_threads, duration):
     result = subprocess.run(
-        ['python3', 'benchmark.py', str(client_threads), str(duration)],
+        [PYTHONS['py314t'], 'benchmark.py', str(client_threads), str(duration)],
         capture_output=True, text=True
     )
     match = re.search(r"([\d.]+) req/sec", result.stdout)
