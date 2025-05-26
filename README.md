@@ -41,18 +41,20 @@ Install dependencies using the provided setup script:
 
 > Note: Note: You may need to run with bash explicitly depending on your shell.
 
+This should setup Python 3.14, 3.14t (free threading), and a Python 3.13 stable to run the controlling script.
+
 ### 2. Run a threaded or multiprocess server
 
 #### Threaded example:
 
 ```bash
-python threaded-server.py 8 compute
+./py314t/bin/python threaded-server.py 8 compute
 ```
 
 #### Multiprocess example:
 
 ```bash
-python multiprocess-server.py 8 compute
+./py314t/bin/python multiprocess-server.py 8 compute
 ```
 
 - The first argument is the number of threads or processes.
@@ -65,7 +67,7 @@ python multiprocess-server.py 8 compute
 Run the benchmark tool in another terminal:
 
 ```bash
-python benchmark.py 4 15
+./py314t/bin/python benchmark.py 4 15
 ```
 
 - The first argument is the number of benchmark threads
