@@ -9,7 +9,7 @@ def handle_client(conn):
             x += 1
         conn.sendall(b"done")
 
-def main():
+if __name__ == '__main__':
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(('127.0.0.1', 1337))
     server_socket.listen()
@@ -24,6 +24,3 @@ def main():
             except KeyboardInterrupt:
                 print("Shutting down server.")
                 break
-
-if __name__ == '__main__':
-    main()
