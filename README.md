@@ -8,6 +8,7 @@ It includes tools to benchmark, visualize, and compare how different concurrency
 
 ## 🔧 Project Structure
 
+```bash
 .
 ├── benchmark.py                 # Benchmark client for generating load
 ├── controller.py                # Orchestrates benchmarks and collects results
@@ -24,6 +25,7 @@ It includes tools to benchmark, visualize, and compare how different concurrency
 ├── clean.sh                     # Cleanup utility
 ├── LICENSE                      # MIT license
 └── README.md                    # You’re reading it!
+```
 
 ---
 
