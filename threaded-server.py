@@ -1,7 +1,8 @@
-import socket
-import threading
+oimport socket
 import sys
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 def handle_client(conn, addr, mode):
     with conn:
@@ -16,11 +17,6 @@ def handle_client(conn, addr, mode):
                     x += 1
             conn.sendall(data if mode == "echo" else b"done")
 
-def worker(server_socket, mode):
-    while True:
-        conn, addr = server_socket.accept()
-        threading.Thread(target=handle_client, args=(conn, addr, mode), daemon=True).start()
-
 def main():
     if len(sys.argv) < 3:
         print("Usage: threaded-server.py <num_threads> <mode: echo|compute>")
@@ -34,11 +30,16 @@ def main():
     server_socket.bind(('127.0.0.1', 1337))
     server_socket.listen()
 
-    for _ in range(num_threads):
-        threading.Thread(target=worker, args=(server_socket, mode), daemon=True).start()
-
-    while True:
-        time.sleep(1)
+    # Use ThreadPoolExecutor to reuse threads for handling clients
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        print(f"Server running with thread pool of {num_threads} threads, mode: {mode}")
+        while True:
+            try:
+                conn, addr = server_socket.accept()
+                executor.submit(handle_client, conn, addr, mode)
+            except KeyboardInterrupt:
+                print("Shutting down server.")
+                break
 
 if __name__ == '__main__':
     main()
